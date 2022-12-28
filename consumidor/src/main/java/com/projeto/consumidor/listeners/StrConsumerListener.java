@@ -1,6 +1,7 @@
 package com.projeto.consumidor.listeners;
 
 import com.projeto.consumidor.custom.StrConsumerCustomListener;
+import lombok.SneakyThrows;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.kafka.annotation.TopicPartition;
 import org.springframework.stereotype.Component;
@@ -14,9 +15,11 @@ public class StrConsumerListener {
         log.info(" CREATE ::: Receive message {}", message);
     }
 
+    @SneakyThrows
     @StrConsumerCustomListener(groupId = "group-1", containerFactory = "validMessageContainerFactory")
     public void log(String message) {
         log.info("LOG ::: Receive message {}", message);
+        throw new Exception("Error ...");
     }
 
     @StrConsumerCustomListener(groupId = "group-2",
